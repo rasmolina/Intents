@@ -3,9 +3,12 @@ package br.edu.scl.ifsp.ads.intents
 import android.Manifest.permission.CALL_PHONE
 import android.content.Intent
 import android.content.Intent.ACTION_CALL
+import android.content.Intent.ACTION_CHOOSER
 import android.content.Intent.ACTION_DIAL
 import android.content.Intent.ACTION_PICK
 import android.content.Intent.ACTION_VIEW
+import android.content.Intent.EXTRA_INTENT
+import android.content.Intent.EXTRA_TITLE
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
@@ -130,11 +133,20 @@ class MainActivity : AppCompatActivity() {
                 pegarImagemArl.launch(pegarImagemIntent)
                 true
             }
+
             R.id.chooserMi-> {
+                val url = Uri.parse(amb.parametroTv.text.toString())
+                val navegadorIntent = Intent(ACTION_VIEW, url)
+
+                val escolherAppIntent = Intent(ACTION_CHOOSER)
+                escolherAppIntent.putExtra(EXTRA_TITLE, "Escolha seu navegador")
+                escolherAppIntent.putExtra(EXTRA_INTENT, navegadorIntent)
+
+                startActivity(escolherAppIntent)
 
                 true
             }
-            else -> true
+            else -> false
         }
     }
 
